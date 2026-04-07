@@ -1,3 +1,10 @@
+import streamlit as st
+import numpy as np
+import pandas as pd
+from scipy.stats import norm
+import yfinance as yf
+import streamlit.components.v1 as components
+
 <div class="hedging-tool bg-[#161a1e] p-6 rounded-lg border border-[#f0b90b]/30">
     <div class="flex justify-between items-center mb-6">
         <h2 class="text-[#f0b90b] font-bold text-xl uppercase">🛡️ Hedging Engine (Black-Scholes)</h2>
