@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import scipy.stats norm
+from scipy.stats import norm
 import yfinance as yf
 import streamlit.components.v1 as components
 
