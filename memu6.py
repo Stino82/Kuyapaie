@@ -4,6 +4,7 @@ import pandas as pd
 from scipy.stats import norm
 import yfinance as yf
 
+def show():
 <section class="glass-card rounded-3xl p-6 mt-6 border-t-4 border-blue-600 shadow-2xl">
     <div class="flex justify-between items-center mb-6">
         <div>
