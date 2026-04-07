@@ -8,11 +8,11 @@ import hashlib
 from scipy.stats import norm
 
 # --- 1. INITIALISATION DE LA BASE DE DONNÉES ---
-def init_db():   
+def init_db()
     conn = sqlite3.connect('kuyapaie_souverain.db') 
-    c = conn.cursor()  
+    c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS users            
-                 (id INTEGER PRIMARY KEY AUTOINCREMENT,                
+                 (id INTEGER PRIMARY KEY AUTOINCREMENT,           
                   nom_complet TEXT, telephone TEXT, localisation TEXT,         
                   email TEXT UNIQUE, password_hash TEXT, kyc_status TEXT,           
                   secret_question TEXT, secret_answer TEXT)''')   
