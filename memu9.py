@@ -3,8 +3,8 @@ import numpy as np
 import pandas as pd
 from scipy.stats import norm
 import yfinance as yf
-import streamlit.components.v1 as components
 
+def show():
 <section class="glass-card rounded-3xl p-8 mt-6 border-2 border-red-600/30 bg-gradient-to-b from-black to-[#0b0e11] shadow-[0_20px_50px_rgba(220,38,38,0.1)]">
     
     <div class="flex justify-between items-center mb-10">
