@@ -1,5 +1,11 @@
+import streamlit as st
+import numpy as np
+import pandas as pd
+from scipy.stats import norm
+import yfinance as yf
+
+def show():
 <section class="glass-card rounded-3xl p-6 mt-6 border-t-4 border-gray-600 bg-[#0b0e11] shadow-2xl pb-10">
-    
     <div class="flex items-center gap-4 mb-8 p-4 bg-white/5 rounded-2xl border border-white/5">
         <div class="relative">
             <div class="w-14 h-14 bg-gradient-to-tr from-[#f0b90b] to-yellow-200 rounded-full flex items-center justify-center text-black font-black text-xl">
