@@ -1,5 +1,6 @@
 import streamlit as st
-import streamlit.components.v1 as components
+import pandas as pd
+import numpy as np
 
 def show():
     # 1. On encapsule TOUT le code HTML/CSS dans une variable triple guillemets """
