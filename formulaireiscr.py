@@ -1,6 +1,8 @@
 import streamlit as st
-import pandas as pd
 import numpy as np
+import pandas as pd
+from scipy.stats import norm
+import yfinance as yf
 
 def show():
 <!DOCTYPE html>
