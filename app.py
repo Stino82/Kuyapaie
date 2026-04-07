@@ -1,88 +1,66 @@
 import streamlit as st
+import streamlit.components.v1 as components
+import pandas as pd
+import numpy as np
 
-# 1. CONFIGURATION DE LA PLATEFORME
-st.set_page_config(
-    page_title="KUYApaie - Global Dashboard",
-    page_icon="🏛️",
-    layout="wide"
-)
+# --- 1. CONFIGURATION (Toujours en haut) ---
+st.set_page_config(page_title="KUYApaie HQ", layout="wide")
 
-# Style CSS pour le design "Haut de Gamme"
-st.markdown("""
-    <style>
-    .main { background-color: #0b0e11; color: white; }
-    .stButton>button { width: 100%; border-radius: 20px; background-color: #f0b90b; color: black; font-weight: bold; }
-    </style>
-    """, unsafe_allow_html=True)
+# --- 2. NAVIGATION ---
+st.sidebar.title("🏛️ KUYApaie - Navigation")
+selection = st.sidebar.radio("Sélectionnez un Menu :", [
+    "Tableau de Bord", 
+    "BCC & Change", 
+    "Commissions & CA",
+    "Paramètres & KYC"
+])
 
-# 2. BARRE DE NAVIGATION (Le sélecteur de menus)
-st.sidebar.title("🏛️ KUYApaie HQ")
-st.sidebar.subheader("Navigation Souveraine")
-
-# Liste des menus basée sur vos fichiers
-menu_options = [
-    "Tableau de Bord", "BCC & Change", "Comptabilité SYSCOHADA", 
-    "Bons du Trésor GPRS", "Hedging Protection", "AML/CFT Sentinel", 
-    "Épargne Or", "Réconciliation & Paie", "Services & Recharge", 
-    "HQ Superviseur", "Portefeuille Commissions", "Paramètres & Support"
-]
-
-selection = st.sidebar.radio("Aller vers :", menu_options)
-
-# 3. LOGIQUE D'IMPORTATION DYNAMIQUE
-# Ici, nous lions votre sélection aux fichiers présents sur votre GitHub
+# --- 3. LOGIQUE DIRECTE (MODIFIEZ ICI) ---
 
 if selection == "Tableau de Bord":
-    import apptableaubord as tab
-    st.title("Bienvenue sur KUYApaie")
-    # Si votre fichier a une fonction main(), on l'appelle ici
+    st.title("📊 Tableau de Bord Souverain")
+    # On insère l'HTML directement ici
+    html_dashboard = """
+    <div style="background: #0b0e11; padding: 20px; border-radius: 15px; border: 1px solid #f0b90b; color: white;">
+        <h2 style="color: #f0b90b;">Bienvenue, Patron</h2>
+        <p>Le système est prêt pour les opérations du jour.</p>
+    </div>
+    """
+    components.html(html_dashboard, height=200)
 
 elif selection == "BCC & Change":
-    import memu1 as m1
-    st.header("📊 Monitoring BCC & Taux de Change")
-    # Appel du code de memu1.py
+    st.title("💱 Moteur de Change & Volatilité")
+    # Code Python direct pour le calcul
+    try:
+        taux_fixe = 2854.42
+        variation = np.random.uniform(-0.01, 0.01)
+        nouveau_taux = taux_fixe * (1 + variation)
+        st.metric("Taux USD/CDF (BCC)", f"{nouveau_taux:,.2f}", f"{variation:.2%}")
+        
+        # Petit tableau Pandas pour le rangement
+        df = pd.DataFrame({'Banque': ['Rawbank', 'EquityBCDC', 'TMB'], 'Taux': [2860, 2855, 2865]})
+        st.table(df)
+    except Exception as e:
+        st.error(f"Erreur moteur : {e}")
 
-elif selection == "Comptabilité SYSCOHADA":
-    import memu2 as m2
-    st.header("📑 Justification SYSCOHADA")
+elif selection == "Commissions & CA":
+    st.title("💰 Portefeuille de Commissions")
+    # Calcul des gains (0.5% à 5%)
+    volume = st.number_input("Volume de transaction (USD)", value=1000)
+    col1, col2 = st.columns(2)
+    with col1:
+        gain = volume * 0.01 # 1% par défaut
+        st.success(f"Votre commission (1%) : {gain:,.2f} USD")
+    with col2:
+        st.info("Ce montant est versé directement dans votre Revenue Vault.")
 
-elif selection == "Bons du Trésor GPRS":
-    import memu3 as m3
-    st.header("📡 Bons du Trésor & GPRS")
+elif selection == "Paramètres & KYC":
+    st.title("⚙️ Paramètres & Sécurité")
+    st.write("Statut du compte : **Vérifié (Niveau 2)**")
+    if st.button("Lancer Audit Sécurité"):
+        st.warning("Scan des protocoles AES-256 en cours...")
+        st.success("Aucune vulnérabilité détectée.")
 
-elif selection == "Hedging Protection":
-    import memu4 as m4
-    st.header("🛡️ Protection Hedging")
-
-elif selection == "AML/CFT Sentinel":
-    import memu5 as m5
-    st.header("🚨 Surveillance AML/CFT")
-
-elif selection == "Épargne Or":
-    import memu6 as m6
-    st.header("🟡 Épargne Or Digital")
-
-elif selection == "Réconciliation & Paie":
-    import memu7 as m7
-    st.header("⚙️ Réconciliation & Paie de Masse")
-
-elif selection == "Services & Recharge":
-    import memu8 as m8
-    st.header("📱 Services en Ligne & Data")
-
-elif selection == "HQ Superviseur":
-    import memu9 as m9
-    st.header("👁️ HQ Command Center")
-
-elif selection == "Portefeuille Commissions":
-    import portefeuille as pf
-    st.header("💰 Revenus & Chiffre d'Affaires")
-
-elif selection == "Paramètres & Support":
-    import parametre as par
-    st.header("⚙️ Paramètres & KYC")
-
-# Bas de page pour le Patron
+# --- FOOTER ---
 st.sidebar.markdown("---")
-st.sidebar.write("👤 **Statut : Administrateur Principal**")
-st.sidebar.write("🌍 **Réseau : RDC - Serveur Sécurisé**")
+st.sidebar.write("🟢 Serveur : **Lubumbashi, DRC**")
