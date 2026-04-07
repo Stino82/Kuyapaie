@@ -1,6 +1,8 @@
 import streamlit as st
-import pandas as pd
 import numpy as np
+import pandas as pd
+from scipy.stats import norm
+import yfinance as yf
 
 def show():
 <div class="hedging-tool bg-[#161a1e] p-6 rounded-lg border border-[#f0b90b]/30">
