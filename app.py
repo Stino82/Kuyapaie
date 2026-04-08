@@ -1,18 +1,3 @@
-import os
-import subprocess
-import sys
-
-# --- FORCE INSTALLATION SYSTEM (Méthode de secours) ---
-def force_install(package):
-    try:
-        __import__(package)
-    except ImportError:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
-# On force l'installation de scipy et yfinance avant d'importer quoi que ce soit
-force_install("scipy")
-force_install("yfinance")
-
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -70,7 +55,6 @@ def inject_component(html_code, height=700):
     components.html(custom_css + html_code, height=height, scrolling=False)
 
 # --- LOGIQUE DES MODULES ---
-
 if menu == "Tableau de Bord HQ":
     hq_html = """
     <section class="glass-card rounded-3xl p-8 mt-6 border-2 border-red-600/30 bg-gradient-to-b from-black to-[#0b0e11] shadow-[0_20px_50px_rgba(220,38,38,0.1)]">
@@ -85,10 +69,10 @@ if menu == "Tableau de Bord HQ":
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 text-white">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
             <div class="bg-white/5 p-4 rounded-2xl border border-white/10 text-center">
                 <span class="text-[9px] text-gray-500 uppercase">Volume 24h</span>
-                <div class="text-xl font-black text-white">$1,284,500</div>
+                <div class="text-xl font-black">$1,284,500</div>
             </div>
             <div class="bg-white/5 p-4 rounded-2xl border border-white/10 text-center">
                 <span class="text-[9px] text-gray-500 uppercase">Utilisateurs</span>
@@ -99,63 +83,26 @@ if menu == "Tableau de Bord HQ":
                 <div class="text-xl font-black text-red-500">0</div>
             </div>
             <div class="bg-white/5 p-4 rounded-2xl border border-white/10 text-center">
-                <span class="text-[9px] text-gray-500 uppercase">Or Digital</span>
-                <div class="text-xl font-black text-[#f0b90b]">12.45 Kg</div>
+                <span class="text-[9px] text-gray-500 uppercase">Réserves Or</span>
+                <div class="text-xl font-black text-yellow-500">12.45 Kg</div>
             </div>
         </div>
     </section>
     """
-    inject_component(hq_html, height=450)
+    inject_component(hq_html, height=400)
 
 elif menu == "Revenue Vault":
-    vault_html = """
-    <section class="glass-card rounded-3xl p-6 mt-6 border-t-4 border-yellow-500 bg-gradient-to-br from-[#0b0e11] to-[#1a1d23] shadow-2xl">
-        <div class="flex justify-between items-center mb-8">
-            <h2 class="text-2xl font-black text-white tracking-tighter uppercase italic">Revenue <span class="text-yellow-500">Vault</span></h2>
-            <i class="fa-solid fa-vault text-yellow-500 text-xl"></i>
-        </div>
-        <div class="bg-black/60 p-6 rounded-2xl border border-white/5 text-white mb-8">
-            <span class="text-[10px] text-gray-500 uppercase font-bold">Chiffre d'Affaires Cumulé</span>
-            <div class="text-4xl font-black text-white mt-2">$1,450.00</div>
-            <div class="mt-4 w-full bg-gray-800 h-1.5 rounded-full"><div class="bg-yellow-500 h-full w-[45%]"></div></div>
-        </div>
-    </section>
-    """
-    inject_component(vault_html, height=400)
+    st.header("💰 Revenue Vault")
+    st.info("Statistiques des commissions en cours de chargement...")
 
 elif menu == "Hedging & Taux BCC":
-    st.subheader("📈 Analyse de Risque USD/CDF")
-    taux_actuel = st.number_input("Taux Marché actuel", value=2850)
-    if taux_actuel < 2800:
+    st.subheader("📈 Hedging USD/CDF")
+    taux = st.number_input("Taux Marché actuel", value=2850)
+    if taux < 2800:
         st.success("🟢 ZONE VERTE : Stabilité")
-    elif taux_actuel < 2900:
-        st.warning("🟠 ZONE ORANGE : Vigilance")
     else:
-        st.error("🔴 ZONE ROUGE : Hedging requis")
-    
-    chart_data = pd.DataFrame(np.random.randn(20, 2), columns=['BCC', 'KUYApaie'])
-    st.line_chart(chart_data)
-
-elif menu == "Profil Utilisateur":
-    profil_html = """
-    <section class="glass-card rounded-3xl p-6 mt-6 border-t-4 border-gray-600 bg-[#0b0e11] shadow-2xl">
-        <div class="flex items-center gap-4 mb-8 p-4 bg-white/5 rounded-2xl text-white">
-            <div class="w-14 h-14 bg-yellow-500 rounded-full flex items-center justify-center text-black font-black text-xl">JD</div>
-            <div>
-                <h3 class="text-lg font-black text-white">Jean Dupont</h3>
-                <p class="text-[10px] text-gray-500 font-bold uppercase">ID: KP-243-99201</p>
-            </div>
-        </div>
-        <div class="mt-6 p-6 bg-blue-600 rounded-3xl text-white">
-            <h4 class="font-black italic uppercase">Support Client 24h/24</h4>
-            <p class="text-[10px] mt-1">Cliquez pour contacter un expert.</p>
-        </div>
-    </section>
-    """
-    inject_component(profil_html, height=450)
+        st.warning("🟠 ZONE ORANGE/ROUGE : Vigilance")
 
 elif menu == "Paramètres Système":
-    st.subheader("⚙️ Paramètres de Sécurité")
-    st.text_input("Clé API (Lecture seule)", "********-****-4992-8821-**********", disabled=True)
     if st.button("🚨 RÉINITIALISER LE SYSTÈME"):
-        st.error("AUTORISATION DU SUPERVISEUR REQUISE")
+        st.error("Accès refusé : Empreinte biométrique requise.")
