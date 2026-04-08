@@ -1,8 +1,6 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-from scipy.stats import norm
-import yfinance as yf
 import streamlit.components.v1 as components
 
 def show_hedging():
