@@ -194,3 +194,23 @@ elif menu == "Profil & Support":
     </div>
     """
     display_html(profil_content, h=400)
+
+with tab2:
+    st.subheader("💳 Acheter un accès Data BCC")
+    st.write("Choisissez votre forfait pour débloquer les analyses en temps réel.")
+    
+    col_a, col_b = st.columns(2)
+    
+    with col_a:
+        st.info("**Forfait Jour**")
+        st.write("Accès 24h à la data")
+        st.write("Prix : 5$")
+        st.link_button("Payer par Carte/PayPal", "https://ton-lien-de-paiement-stripe.com")
+
+    with col_b:
+        st.success("**Forfait Mois**")
+        st.write("Accès illimité 30 jours")
+        st.write("Prix : 50$")
+        st.link_button("Payer par Carte/PayPal", "https://ton-lien-de-paiement-stripe.com")
+
+    st.warning("⚠️ Après le paiement, envoyez votre reçu à : support@kuyapaie.com")
