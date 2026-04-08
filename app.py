@@ -1,4 +1,4 @@
-# Mise à jour système KUYApaie
+# Version stable 1.0
 import streamlit as st
 import numpy as np
 import pandas as pd
