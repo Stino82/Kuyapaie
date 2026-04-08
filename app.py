@@ -2,7 +2,6 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import yfinance as yf
 import streamlit.components.v1 as components
 
 # --- CONFIGURATION PROFESSIONNELLE ---
