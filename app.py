@@ -141,6 +141,51 @@ elif menu == "Profil & Support":
                 <p class="text-gray-500 text-xs font-bold uppercase tracking-widest">ID: KP-243-99201</p>
                 <span class="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full">KYC NIVEAU 2</span>
             </div>
+            with tab2:
+    st.subheader("📲 Acheter un accès via Mobile Money")
+    st.write("Recevez vos accès instantanément après validation du paiement.")
+
+    # Choix du forfait
+    forfait = st.selectbox("Choisir une durée", ["24 Heures - 5$", "1 Mois - 50$"])
+    
+    # Simulation des liens de paiement (Remplace par tes vrais liens Flutterwave/Paystack)
+    if "24 Heures" in forfait:
+        lien_paiement = "https://flutterwave.com/pay/kuyapaie-24h"
+        prix = "5$"
+    else:
+        lien_paiement = "https://flutterwave.com/pay/kuyapaie-mensuel"
+        prix = "50$"
+
+    st.info(f"Tarif sélectionné : **{prix}**")
+
+    # Boutons de paiement
+    col_pay1, col_pay2 = st.columns(2)
+    
+    with col_pay1:
+        st.write("**Option 1 : Paiement Automatique**")
+        st.link_button("Payer par Mobile Money", lien_paiement, type="primary")
+        st.caption("Supporte : Orange, Airtel, M-Pesa, Carte Visa")
+
+    with col_pay2:
+        st.write("**Option 2 : Transfert Direct**")
+        st.write("Envoyez le montant au : **+243 XXX XXX XXX**")
+        st.write("Nom : KUYApaie Service")
+        
+    st.divider()
+    
+    # Formulaire de confirmation après dépôt
+    st.write("**Une fois le dépôt effectué, remplissez ceci :**")
+    with st.form("confirmation_paiement"):
+        id_transaction = st.text_input("Référence de la transaction (ID)")
+        num_client = st.text_input("Votre numéro de téléphone")
+        submit = st.form_submit_button("Confirmer mon paiement")
+        
+        if submit:
+            if id_transaction and num_client:
+                st.success("✅ Reçu ! Votre accès sera activé dans les 15 minutes après vérification.")
+                # Ici, tu recevras une notification ou cela s'enregistrera dans ta base
+            else:
+                st.error("Veuillez remplir les champs pour la vérification.")
         </div>
         <div onclick="alert('Liaison avec un agent KUYApaie...')" class="p-6 bg-blue-600 rounded-3xl cursor-pointer hover:bg-blue-500 transition-all shadow-xl shadow-blue-900/20">
             <h4 class="text-lg font-black italic uppercase">Support VIP 24h/7</h4>
